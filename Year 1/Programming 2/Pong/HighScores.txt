@@ -1,0 +1,5 @@
+PLAYER: 0 || CPU: 1 || Winner is CPU
+Nigel: 0 || CPU: 1 || Winner is CPU
+Nigel: 1 || CPU: 0 || Winner is Nigel
+Nigel: 0 || CPU: 1 || Winner is CPU
+Nigel: 0 || CPU: 1 || Winner is CPU

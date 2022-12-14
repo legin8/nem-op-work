@@ -1,0 +1,5 @@
+Player: 0 | Aliens: 1 | Winner is Aliens
+Player: 0 | Aliens: 1 | Winner is Aliens
+Player: 0 | Aliens: 1 | Winner is Aliens
+Player: 0 | Aliens: 1 | Winner is Aliens
+Player: 0 | Aliens: 1 | Winner is Aliens

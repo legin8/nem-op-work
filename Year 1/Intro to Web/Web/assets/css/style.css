@@ -1,0 +1,1132 @@
+/* Start of General Tags !!!!!!!!!!!!!!!!!!!!!!*/
+/* the :root targets the whole dom */
+:root {
+  --main-color: #006EB6;
+  --blue-border: var(--main-color) solid 1px;
+  --block4-buttons: lightgray solid 1px;
+  --white: white;
+  --white-border: var(--white) solid 1px;
+}
+
+/* This fixes the image and centers it Used through out the page*/
+.imgToApi {
+  background-position: center;
+  background-size: cover;
+}
+
+/* This targets the body of the dom */
+body, a {
+  color: var(--main-color);
+  margin: 0px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* This gets rid of the dot for all ul lists */
+ul {
+  list-style: none;
+}
+
+/* This gets rid of all the underlines on the a tags */
+a {
+  text-decoration: none;
+}
+
+/* Used to make the circles spin, got help from Decan on this one*/
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* End of General Tags !!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+
+/* Start of Header Tags !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Nav bar Fixed to the top of the screen */
+/* Stops the bit at the top of header being transparent */
+header {
+  padding-top: 10px;
+  position: fixed;
+  width: 100%;
+  background-color: var(--white);
+  z-index: 100;
+}
+
+/* This is for the top bar and everything it holds */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  border-top: var(--main-color) solid 1px;
+  border-bottom: var(--main-color) solid 1px;
+}
+
+/* This puts each entry into the lists in the top bar next to each other */
+.topBar>div>ul {
+  display: flex;
+}
+
+/* This adds space between the list items */
+.topBar li {
+  padding: 0 15px;
+}
+
+/* These 3 position the content of the nav bar where it should be */
+.topBarLeft {
+  margin-right: auto;
+}
+
+.topBarCenter {
+  margin:auto;
+}
+
+.topBarRight {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* This makes the background blue and a circle behind the 0 on the nav bar, top right */
+.topBarCircle div {
+  color: var(--white);
+  background-color: var(--main-color);
+  border-radius: 100%;
+  text-align: center;
+  padding: 5px 9px;
+}
+
+
+/* Adds space between the right of the screen and the shopping trolly with the blue circle*/
+.topBarCircle {
+  padding: 0px 15px;
+}
+
+/* This shows the blue trolly */
+.shoppingTrolly:hover .trollyHover {
+  display: block;
+}
+
+/* This hides the white trolly */
+.shoppingTrolly:hover .trollyNormal {
+  display: none;
+}
+
+/* This hides the blue trolly at the start */
+.trollyHover {
+  display: none;
+}
+
+/* This sets the trollys and the blue circle to flex */
+.shoppingTrolly {
+  display: flex;
+}
+
+
+
+
+
+/* The cup that fills itself, Right of the screen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* positions the the with the background for the cup */
+.cupMainDiv {
+  position: fixed;
+  top: 170px;
+  right: 0px;
+}
+
+/* This is the size of the containing div with the shape of it */
+.cupDiv {
+  padding: 20px 25px;
+  background-color: lightgray;
+  border-top-left-radius: 100%;
+  border-bottom-left-radius: 100%;
+}
+
+/* This is the location of the self filling cup */
+.smallCup {
+  position: fixed;
+  width: 35px;
+  top: 175px;
+  right: 0px;
+}
+
+/* Makes background bigger for the side cup and shows the text */
+.cupDiv:hover {
+  width: 85px;
+}
+
+/* It moves the cup svg at the side of the screen  */
+.cupDiv:hover .smallCup {
+  right: 50px;
+}
+
+/* This affects the p tag after the cup svg */
+.cupDiv p {
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  display: none;
+}
+
+/* makes text appear */
+.cupMainDiv:hover .cupDiv p {
+  display: block;
+}
+
+
+
+
+
+/* Click away box fixed at the bottom of the screen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Styles for the box and location on the screen ect */
+.clickAwayBox {
+  position: fixed;
+  bottom: 0px;
+  background-color: var(--white);
+  width: 100%;
+  height: 50px;
+  z-index: 100;
+  border-top: var(--blue-border);
+}
+
+/* The X in the corner */
+p.clickAwayBoxX {
+  position: fixed;
+  right: 30px;
+}
+
+/* This turns the X when you hover on it */
+.clickAwayBoxX:hover {
+  rotate: 90deg;
+}
+
+/* The Text in the box */
+div .clickAwayBoxText {
+  position: fixed;
+  left: 43%;
+}
+
+/* Sets the size of the text in the fixed box at the bottom of the screen */
+.clickAwayBoxText {
+  font-size: 15px;
+}
+
+/* End of Header Tags !!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Start of Body Tags !!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Start of Block 1 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Sets the vh for the top grid and the small nav bar under it */
+.block1 {
+  height: 100vh;
+}
+
+/* Makes the gride in block 1 and sets the height as a %
+/* Grid for Block 1*/
+.block1Grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 95%;
+}
+
+/* I used to make things flex only in block 1 */
+.block1Flex {
+  display: flex;
+}
+
+/* Grid Column 2 Heading above buttons */
+.block1secondColumn {
+  padding: 0px 70px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Heading for block 1 gride column 2 */
+section.block1 h1 {
+  font-family: serif;
+  font-size: 60px;
+}
+
+
+/* Buttons !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Block 1 buttons */
+div.topButtons a {
+  border: var(--blue-border);
+  padding: 19px 34px;
+}
+
+/* This gets rid of 1 of the lines between the buttons */
+.buttonBlock1.button1 {
+  border-right: transparent;
+}
+
+/* Block 1 hover effects for top buttons */
+.buttonBlock1:hover {
+  background-color: var(--main-color);
+  color: var(--white);
+  transition: 500ms;
+}
+
+
+
+
+
+/* Start of nav bar under grid !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Sets the top and bottom borders for the div */
+.block1Nav {
+  border-top: var(--blue-border);
+  border-bottom: var(--blue-border);
+}
+
+/* positions the content */
+nav.block1Nav ul {
+  display: flex;
+  justify-content: center;
+}
+
+/* Puts space between the text and the dots */
+nav.block1Nav ul li {
+  padding: 0 8px;
+}
+
+/* this is the dot between the things on the nav bar */
+.navBarDot::before {
+  content: "•";
+  font-size: 9px;
+}
+
+
+
+
+
+
+
+/* Start of Block 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Centers the text in block 2 */
+.block2 {
+  text-align: center;
+}
+
+/* This is for the picture of the bird */
+.bird1 {
+  width: 450px;
+  margin-bottom: -40px;
+  padding-top: 5px;
+}
+
+
+/* This is for the block 2 Heading */
+.block2 h2 {
+  font-size: 50px;
+  font-weight: 400;
+  margin-top: -10px;
+}
+
+/* This is for the block of text under the heading */
+.block2 p {
+  font-size: 20px;
+  width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/* Start of Spinner with text and arrow !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Spinner itself */
+.block2Spinner {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  right: 100px;
+  bottom: -90px;
+}  
+
+/* makes the circle spin with the keyframes above */
+.block2Circle {
+  animation: rotation 15s infinite linear;
+}
+
+/* changes the background of the spinning circle on hover */
+.block2Circle:hover {
+  background-color: aquamarine;
+}
+
+/* Just for the text and arrow inside the spinning circle */
+.block2JustTextWithArrow {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  position: relative;
+  right: 155px;
+  bottom: -60px;
+  rotate: 12deg;
+}
+
+
+
+
+
+
+
+
+
+/* Start of Block 3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* Heading block above the main grid */
+.block3TopHeadingBlock {
+  border-top: var(--blue-border);
+  font-size: 50px;
+  text-align: center;
+  padding: 80px 24px;
+  font-weight: 100;
+  margin-bottom: 0px;
+}
+
+/* This is the container for the main grid in block 3 */
+.block3Grid {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  border-top: var(--blue-border);
+  border-bottom: var(--blue-border);
+  height: 700px;
+}
+
+/* Adds padding to all the block 3 divs with a pic and text */
+.block3GridPadding {
+  padding: 40px;
+}
+
+/* For all p elements in block 3*/
+.block3Grid p {
+  font-size: 16px;
+  text-align: center;
+  padding: 5px 15px 60px 15px;
+}
+
+/* Image sizes in grid, smaller imgs*/
+.block3Img1 {
+  width: 65px;
+}
+
+.block3Img2 {
+  width: 120px;
+}
+
+.block3Img3 {
+  width: 70px;
+}
+
+.block3Img4 {
+  width: 80px;
+}
+
+
+/* Left column in grid */
+.block3GridLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* for each of the 4 small blocks in the 3 columns */
+.block3GridCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 30px;
+}
+
+/* for the middle picture in column 2 */
+.block3MiddlePic {
+  border: var(--blue-border);
+  display: flex;
+}
+
+/* extra style for 1 boarder between the two blocks  on each side */
+.block3GridLineBetween {
+  border-top: var(--blue-border);
+}
+/* End of Block 3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+
+/* Start of Block 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* Grid for block 4 */
+.block4Grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  border-bottom: var(--blue-border);
+}
+
+/* Vertical Bar, rotates text and sets margins */
+.block4VerticalBar {
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  direction: rtl;
+  transform: rotateZ(180deg);
+  margin-left: auto;
+  margin-right: auto;
+  border-left: var(--blue-border);
+  
+}
+
+/* Sets space at top and the boldness and text size */
+.block4VerticalText {
+  position: relative;
+  font-weight: 100;
+  font-size: 38px;
+  top: -65px
+}
+
+/* This is the layout for block 4 containing the grid with the products */
+.block4Products {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5%;
+  padding: 70px;
+  text-align: center;
+  height: 80vh;
+  align-items: center;
+  justify-items: center;
+}
+
+/* This makes the pictures in block 4 grid a relative size height and width based on the height of the screen */
+.productImg {
+  height: 60vh;
+  width: 30vh;
+}
+
+/* This will style the heading of each picture */
+.block4Texts h4 {
+  font-size: 28px;
+}
+
+/* This styles the buttons that are hidden until you hover over the div it's in */
+.block4Grid button {
+  opacity: 0;
+  padding: 10px;
+  font-size: 15px;
+  transition: 0.5s;
+}
+
+/* hover effect for product 1 */
+.product1:hover .buttons1 button {
+  opacity: 1;
+  color: var(--main-color);
+  border: var(--block4-buttons);
+  background-color: var(--white);
+  font-size: 15px;
+  padding: 10px;
+}
+
+/* hover effect for product 2 */
+.product2:hover .buttons2 button {
+  opacity: 1;
+  color: var(--main-color);
+  border: var(--block4-buttons);
+  background-color: var(--white);
+  font-size: 15px;
+  padding: 10px;
+}
+
+/* hover effect for product 3 */
+.product3:hover .buttons3 button {
+  opacity: 1;
+  color: var(--main-color);
+  border: var(--block4-buttons);
+  background-color: var(--white);
+  font-size: 15px;
+  padding: 10px;
+}
+
+
+
+/* block under products aka block 4 footer!!!!!!!!!!!!!!!!!!!!!!!! */
+/* Styles the border for this block */
+.block4Footer {
+  text-align: center;
+  border-top: var(--blue-border);
+  padding: 45px;
+}
+
+/* heading before text */
+.block4Footer h3 {
+  font-size: 38px;
+  font-weight: 100;
+}
+
+/* text below heading */
+.block4Footer a {
+  font-size: 18px;
+}
+
+/* little arrow thats part of text */
+.block4Footer img {
+  width: 17px;
+}
+
+
+
+/* This makes the sqiggles go next to each other */
+.sqiggleRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* sqiggle under Feeling peckish */
+.sqiggle::after {
+  content: url(https://cdn.shopify.com/s/files/1/1530/0579/t/28/assets/squiggle.svg?v=149664987642063442131637456742);
+}
+
+
+/* End of Block 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Start of Block 5 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* The picture div at top */
+.block5PictureDiv {
+  padding: 70px 70px 70px 70px;
+  height: 60vh;
+}
+
+/* The position of the circle */
+.block5Circle {
+  position: relative;
+  bottom: 70px;
+  right: 300px;
+}
+
+/* The content of the circle */
+.block5StuffInSideCircle {
+  position: relative;
+  bottom: 180px;
+  right: -60px;
+  rotate: -13deg;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+/* This makes the circle spin */
+.block5SpinningCircle {
+  animation: rotation 15s infinite linear;
+}
+
+/* This makes the spinning circle with the content, show on the screen */
+.block5Circle {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* This positions the arrow */
+.arrow {
+  padding-left: 25px;
+}
+
+/* This is broken because of the pointer-events: none on the .block5StuffInSideCircle block
+Can't get it to work yet, I tried the > but it still didn't work*/
+/* Hover effect for the spinning circle */
+.block5SpinningCircle:hover .arrow {
+  padding-left: 30px;
+}
+
+/* This changes the fill of the svg spinning circle */
+.block5SpinningCircle:hover path{
+  fill: lightgray;
+
+}
+
+/* This is for the text below the picture with the spinning circle */
+.block5Text {
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  justify-content: center;
+  padding-left: 20%;
+  padding-top: 20px;
+}
+
+/* Sets the styles for the heading under the picture */
+.block5Heading h2 {
+  font-size: 70px;
+  font-weight: 100;
+}
+
+/* Sets the width and size of the bottom text */
+.block5Text p {
+  font-size: 18px;
+  width: 650px;
+}
+
+
+/* End of Block 5 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+/* Start of Block 6 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* This sets the background color for block 6 */
+.block6 {
+  background-color: aliceblue;
+}
+
+/* This styles the top box of block 6 */
+.block6TopBox {
+  border-top: var(--blue-border);
+  border-bottom: var(--blue-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 250px;
+}
+
+/* This makes the arrow go next to the text */
+.block6TextWithArrow {
+  display: flex;
+}
+
+/* Sets the size of the arrow next to the text and adds space between them */
+.block6Arrow {
+  width: 15px;
+  padding-left: 5px;
+}
+
+/* Styles the heading text on the left of the box */
+.block6TopBox h4 {
+  font-size: 28px;
+  font-weight: 200;
+  font-size: 32px;
+  text-align: left;
+  width: 700px;
+}
+
+/* positions the sqiggle */
+.sqiggleRow2 {
+  display: flex;
+  position: relative;
+  bottom: 20px;
+}
+
+/* makes the sqiggle stop where I want it to */
+.secondSqiggleBlock {
+  width: 230px;
+  overflow: hidden;
+}
+
+/* Sets the font size of the text on the right */
+.block6TopBox p {
+  font-size: 18px;
+}
+
+/* makes the sqiggle go under the text */
+.block6TopBoxText {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main boxes of block 6, sets the grid and the height */
+.block6MainBlock {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  height: 95vh;
+}
+
+/* Makes the border at the bottom and the right of the main block*/
+.block6Part1,
+.block6Part2 {
+  border-bottom: var(--blue-border);
+  border-right: var(--blue-border);
+}
+
+/* makes the second block hidden as default */
+.block6Part2 {
+  display: none;
+}
+
+/* This makes the 2 vertical blocks text display */
+.block6VerticalBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  transform: rotateZ(180deg);
+  border-left: var(--blue-border);
+  border-top: var(--blue-border);
+}
+
+/* This sets the size and weight of the h2 inside the vertical blocks */
+.block6VerticalBlock h2 {
+  font-weight: 100;
+  font-size: 30px;
+}
+
+/* picture in main left grid with padding */
+.block6GridA,
+.block6GridB {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  padding: 50px 60px;
+}
+
+/* box next to picture in grid */
+.block6GridApartB,
+.block6GridBpartB {
+  padding-left: 30px;
+  margin: 0px;
+}
+/* End of Block 6 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+/* Start of Block 7 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* base grid of block 7 */
+.block7GridBase {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+/* line between left and right column */
+.block7Box1 {
+  border-right: var(--blue-border);
+  padding: 60px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* Sets the size of the top text */
+.block7Box1 h4 {
+  font-size: 50px;
+  font-weight: 100;
+}
+
+/* Sets the size of the text under the h4 */
+.block7Box1 p {
+  font-size: 18px;
+}
+
+
+/* the birdy left side of the screen */
+.block7Birdy {
+  width: 370px;
+  position: relative;
+  bottom: -200px;
+  left: -120px;
+}
+
+/* just for the arrows in block 7 on the right, hidden until hover */
+.block7Arrow {
+  width: 60px;
+  display: none;
+}
+
+/* hover effect to show the arrows */
+/* Arrow 1 */
+.b7B1:hover .b7Arrow1 {
+  display: block;
+}
+
+/* Arrow 2 */
+.b7B2:hover .b7Arrow2 {
+  display: block;
+}
+
+/* Arrow 3 */
+.b7B3:hover .b7Arrow3 {
+  display: block;
+}
+
+/* middle box on the right column, makes the border lines*/
+.block7Box3 {
+  border-top: var(--blue-border);
+  border-bottom: var(--blue-border);
+}
+
+/* each box in right column */
+.block7RightBoxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 80px 80px;
+
+}
+
+/* moves the hidden arrows to the right */
+.block7RightArrowDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+/* End of Block 7 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+/* Start of Block 8 !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* main grid of block 8 */
+.block8Main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  border-top: var(--blue-border);
+  padding-top: 70px;
+}
+
+/* block 8 leftColumn */
+.block8leftColumn {
+  display: grid;
+  grid-template-rows: 200px 2fr 1fr;
+  padding-left: 18%;
+  width: 500px;
+  margin-left: auto;
+}
+
+/* sets the size of the 2 pictures */
+.block8PictureDiv {
+  width: 500px;
+  height: 350px;
+}
+
+/* block 8 rightColumn */
+.block8rightColumn {
+  display: grid;
+  grid-template-rows: 200px 2fr 1fr;
+  padding-right: 20%;
+  width: 500px;
+}
+
+/* block 8 Heading */
+.block8Heading {
+  font-size: 50px;
+}
+
+/* block 8 text */
+.block8Text {
+  font-size: 27px;
+}
+
+/* block 8 button div */
+.block8ButtonDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-bottom: 50px;
+}
+
+.block8Button:hover {
+  color: var(--white);
+  background-color: var(--main-color);
+  transition: 0.5s;
+}
+
+/* block 8 button */
+.block8Button {
+  border: var(--blue-border);
+  padding: 20px;
+}
+
+/* End of Block 8 !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+
+
+
+
+
+/* End of Body Tags !!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/* Start of Footer !!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* sets margin and background color for the footer */
+footer {
+  background-color: var(--main-color);
+  margin: 0px;
+}
+
+/* this makes the footer a grid with 2 columns */
+.footerBaseLevel {
+  display: grid;
+  grid-template-columns: 76% 24%;
+}
+
+/* this makes the left column flex in a column and sets 1 border */
+.footerLeftColumn {
+  display: flex;
+  flex-direction: column;
+  border-right: var(--white-border);
+}
+
+/* this sets each level of the child of footerLeft to be flex in a row */
+.footerLeftColumnLevel1,
+.footerLeftColumnLevel2,
+.footerLeftColumnLeve3 {
+  display: flex;
+  flex-direction: row;
+}
+
+/* sets this block of left column to grid and makes it 2 columns */
+.footerLeftColumnLevel1 {
+  border-bottom: var(--white-border);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+/* sets the second level of left column bottom boarder and makes it grid */
+.footerLeftColumnLevel2 {
+  border-bottom: var(--white-border);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* sets boarder on left side */
+.footerBorderLeft {
+  border-left: var(--white-border);
+}
+
+/* sets text color to white */
+.whiteText,
+.whiteText a {
+  color: var(--white);
+}
+
+/* sets padding for the left column blocks */
+.footerPaddingLeftBlocks {
+  padding: 40px 40px 30px 20px;
+}
+
+/* sets text size and line height */
+.footerBaseLevel li {
+  line-height: 30px;
+  font-size: 14px;
+}
+
+/* padding for top block left with input */
+.footerBaseLevel input {
+  padding: 20px 225px;
+}
+
+/* sets text size and width for top left block heading */
+.footerBaseLevel h4 {
+  font-size: 22px;
+  width: 70%;
+}
+
+/* sets text size for stuff other wasn't targeting */
+.footerLeftColumnLeve3 p,
+.footerLeftColumnLeve3 a {
+  font-size: 14px;
+}
+
+/* sets bottom left block to flex and aligns stuff with padding */
+.footerLeftColumnLeve3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+/* sets right column to grid */
+.footerRight {
+  display: grid;
+  grid-template-columns: 65% 35%;
+}
+
+/* makes a grid of 3 rows in footer right block 1 */
+.footerRightBlock1 {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  border-right:  var(--white-border);
+}
+
+/* make each box on right column flex and centers content */
+.footerRightBlock1>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* sets the borders between the boxes on the right column */
+.footerRightFirstblockMiddle {
+  border-top:  var(--white-border);
+  border-bottom: var(--white-border);
+}
+
+/* footer right column second block */
+.footerRightBlock2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0px;
+}
+
+/* sets footer right columns pics width */
+.footerPic {
+  width: 40%;
+}
+
+/* End of Footer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* Media querys */
+
+@media (max-width:1050px) {
+  .disapearTopBar {
+    display: none;
+  }
+}
