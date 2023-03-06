@@ -1,0 +1,1054 @@
+-- Nigel Maynard Project for studio 1
+.headers on
+.mode box
+
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS userGame;
+DROP TABLE IF EXISTS console;
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS mainGame;
+DROP TABLE IF EXISTS dlc;
+DROP TABLE IF EXISTS userConsole;
+DROP TABLE IF EXISTS consoleGame;
+DROP TABLE IF EXISTS series;
+DROP TABLE IF EXISTS internet;
+DROP TABLE IF EXISTS gameSeries;
+
+-- This is where I create the tables
+-- user table main
+CREATE TABLE user (
+    user_id INTEGER NOT NULL PRIMARY KEY,
+    username TEXT
+);
+----------------------------------------------
+-- joining table user to console
+CREATE TABLE userConsole (
+    user_id INTEGER,
+    console_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES user (user_id),
+    FOREIGN KEY (console_id) REFERENCES console (console_id)
+);
+-----------------------------------------------
+-- console table main
+CREATE TABLE console (
+    console_id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER,
+    ps4 TEXT,
+    ps_vita TEXT,
+    ps3 TEXT,
+    FOREIGN KEY (console_id) REFERENCES userConsole (user_id)
+);
+------------------------------------------------
+-- joining table game to user
+CREATE TABLE userGame (
+    user_id INTEGER,
+    game_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES user (user_id),
+    FOREIGN KEY (game_id) REFERENCES game (game_id)
+);
+---------------------------------------------------
+-- joining table console to game
+CREATE TABLE consoleGame (
+    game_id INTEGER,
+    console_id INTEGER,
+    FOREIGN KEY (console_id) REFERENCES console (console_id),
+    FOREIGN KEY (game_id) REFERENCES game (game_id)
+);
+---------------------------------------------------------
+---------------------------------------------------------
+---------------------------------------------------------
+-- game table main
+CREATE TABLE game (
+    game_id INTEGER NOT NULL PRIMARY KEY,
+    game_name TEXT
+);
+---------------------------------------------------------
+---------------------------------------------------------
+---------------------------------------------------------
+-- mainGame table main
+CREATE TABLE mainGame (
+    mainGame_id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    game_id INTEGER,
+    game_name TEXT,
+    trophy_lvl INTEGER,
+    trophy_name TEXT,
+    trophy_date TEXT,
+    FOREIGN KEY (game_id) REFERENCES game (game_id)
+);
+-------------------------------------------------------------
+-- dlc table main
+CREATE TABLE dlc (
+    dlc_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    game_id INTEGER,
+    game_name TEXT,
+    dlc_name TEXT,
+    trophy_lvl INTEGER,
+    trophy_name TEXT,
+    trophy_date TEXT,
+    FOREIGN KEY (game_id) REFERENCES game (game_id)
+);
+-----------------------------------------------------------------
+-- joining table game to series
+CREATE TABLE gameSeries (
+game_id INTEGER,
+series_id INTEGER,
+FOREIGN KEY (game_id) REFERENCES game (game_id),
+FOREIGN KEY (series_id) REFERENCES series (series_id)
+);
+-----------------------------------------------------------------
+-- series table main
+CREATE TABLE series (
+    series_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    game_id INTEGER,
+    game_series TEXT
+
+);
+-------------------------------------------------------------------
+CREATE TABLE internet (
+    onlinePlay_ID INTEGER,
+    game_id INTEGER,
+    hasOnline TEXT,
+    onlineWorks TEXT,
+    FOREIGN KEY (onlinePlay_ID) REFERENCES game (game_id)
+);
+
+
+
+
+
+
+
+
+
+
+-- This is where we insert values
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- user data
+INSERT INTO user (user_id, username) VALUES (1, 'cultraz');
+INSERT INTO user (user_id, username) VALUES (2, 'gummyman76');
+INSERT INTO user (user_id, username) VALUES (3, 'blueyellow');
+INSERT INTO user (user_id, username) VALUES (4, 'calaxania');
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- userGame joining table
+INSERT INTO userGame (user_id, game_id) VALUES (1, 1);
+INSERT INTO userGame (user_id, game_id) VALUES (2, 2);
+INSERT INTO userGame (user_id, game_id) VALUES (3, 3);
+INSERT INTO userGame (user_id, game_id) VALUES (4, 4);
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- userConsole joining table
+INSERT INTO userConsole (user_id, console_id) VALUES (1, 1);
+INSERT INTO userConsole (user_id, console_id) VALUES (2, 2);
+INSERT INTO userConsole (user_id, console_id) VALUES (3, 3);
+INSERT INTO userConsole (user_id, console_id) VALUES (4, 4);
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- cosole data
+INSERT INTO console (console_id, user_id, ps4, ps_vita, ps3) VALUES (1, 1, 'yes', 'yes', 'yes');
+INSERT INTO console (console_id, user_id, ps4, ps_vita, ps3) VALUES (2, 2, 'yes', 'no', 'yes');
+INSERT INTO console (console_id, user_id, ps4, ps_vita, ps3) VALUES (3, 3, 'no', 'yes', 'no');
+INSERT INTO console (console_id, user_id, ps4, ps_vita, ps3) VALUES (4, 4, 'yes', 'no', 'yes');
+
+--------------------------------------------------------------------------------------------------------------------------------------
+-- console to game joining table
+INSERT INTO consoleGame (game_id, console_id) VALUES (1, 1);
+INSERT INTO consoleGame (game_id, console_id) VALUES (2, 2);
+INSERT INTO consoleGame (game_id, console_id) VALUES (3, 3);
+INSERT INTO consoleGame (game_id, console_id) VALUES (4, 4);
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- game data
+INSERT INTO game (game_id, game_name) VALUES (1, 'Spyro the Dragon');
+INSERT INTO game (game_id, game_name) VALUES (2, 'Spyro 2: Ripto''s Rage!');
+INSERT INTO game (game_id, game_name) VALUES (3, 'Spyro 3: Year of the Dragon');
+
+INSERT INTO game (game_id, game_name) VALUES (4, 'Uncharted: Drake''s Fortune');
+INSERT INTO game (game_id, game_name) VALUES (5, 'Uncharted 2: Among Thieves');
+INSERT INTO game (game_id, game_name) VALUES (6, 'Uncharted 3: Drake''s Deception');
+
+INSERT INTO game (game_id, game_name) VALUES (7, 'Mass Effect');
+INSERT INTO game (game_id, game_name) VALUES (8, 'Mass Effect 2');
+INSERT INTO game (game_id, game_name) VALUES (9, 'Mass Effect 3');
+
+INSERT INTO game (game_id, game_name) VALUES (10, 'Rayman Origins');
+
+INSERT INTO game (game_id, game_name) VALUES (11, 'LEGO The Lord of the Rings');
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- joining game to series
+INSERT INTO gameSeries (game_id, series_id) VALUES (1, 1);
+INSERT INTO gameSeries (game_id, series_id) VALUES (2, 2);
+INSERT INTO gameSeries (game_id, series_id) VALUES (3, 3);
+INSERT INTO gameSeries (game_id, series_id) VALUES (4, 4);
+INSERT INTO gameSeries (game_id, series_id) VALUES (5, 5);
+INSERT INTO gameSeries (game_id, series_id) VALUES (6, 6);
+INSERT INTO gameSeries (game_id, series_id) VALUES (7, 7);
+INSERT INTO gameSeries (game_id, series_id) VALUES (8, 8);
+INSERT INTO gameSeries (game_id, series_id) VALUES (9, 9);
+INSERT INTO gameSeries (game_id, series_id) VALUES (10, 10);
+INSERT INTO gameSeries (game_id, series_id) VALUES (11, 11);
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- series data
+INSERT INTO series (game_id, game_series) VALUES (1, 'SPYRO');
+INSERT INTO series (game_id, game_series) VALUES (2, 'SPYRO');
+INSERT INTO series (game_id, game_series) VALUES (3, 'SPYRO');
+INSERT INTO series (game_id, game_series) VALUES (4, 'UNCHARTED');
+INSERT INTO series (game_id, game_series) VALUES (5, 'UNCHARTED');
+INSERT INTO series (game_id, game_series) VALUES (6, 'UNCHARTED');
+INSERT INTO series (game_id, game_series) VALUES (7, 'MASS EFFECT');
+INSERT INTO series (game_id, game_series) VALUES (8, 'MASS EFFECT');
+INSERT INTO series (game_id, game_series) VALUES (9, 'MASS EFFECT');
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (1, 1, 'NO', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (2, 2, 'NO', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (3, 3, 'NO', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (4, 4, 'NO', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (5, 5, 'YES', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (6, 6, 'YES', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (7, 7, 'NO', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (8, 8, 'YES', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (9, 9, 'YES', 'NO');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (10, 9, 'YES', 'YES');
+INSERT INTO internet (onlinePlay_ID, game_id, hasOnline, onlineWorks) VALUES (11, 9, 'YES', 'YES');
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- mainGame data
+
+
+-- cultraz
+-- spyro 1
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 4, 'Gnasty''s Demise', '2011-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 3, 'Launch Date', '2011-12-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 3, 'Fly Like an Eagle', '2011-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 3, 'I''m in the Money!', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Barnstormer', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Burt Toast', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Hot Wings 1', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Pops of the Tops', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Egg Hunt', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Hot Wings 2', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Gatherer', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Mushroom Hunter', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'I Believe it is Time fo Me to Fly', '2020-12-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Gems in the Rough', '2020-12-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Bad Doggies!', '2020-12-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'All Puffed Up', '2020-12-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Scrap Metal', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Jacques-tacular', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'What Really Grinds My Gears', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Dragon and On and ON', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 2, 'Hoarder', '2020-12-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Boom!', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Hop, Skip, and Jump', '2020-12-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Sheep Kebab', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Light My Fire', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Leaf on the Wind', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Shoot the Moon', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Bird Brained', '2020-12-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Birds of a Feather', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Triathlon', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'What''s in the Box?', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Comin'' Through!', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Arachnophobe', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Rocketeer', '2020-12-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Cage Free', '2020-12-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Fool''s Errand', '2020-12-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 1, 'Spyro the Dragon', 1, 'Ratastic!', '2020-12-30');
+
+-- spyro 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 3, 'Consevationist 1', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 3, 'Trouble No More', '2021-01-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Rescued!', '2021-01-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Lockjaw', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Gnot Cannon', '2021-01-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Hypersonic', '2021-01-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Well, You Might As Well', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Bad Sushi', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Using Your Head', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Exterminate', '2021-01-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Warm up nthe Crowd', '2021-01-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Long Distance', '2021-01-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Ganked', '2021-01-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 2, 'Spyro 2: Ripto''s Rage!', 1, 'RGB', '2021-01-24');
+
+
+-- spyro 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 3, 'Moving Up In The World', '2021-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 3, 'One Small SStep for Dragon...', '2021-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'The Money''s in the Bag', '2021-01-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'Buzz Off!', '2021-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'A Byrd in the Hand...', '2021-02-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'No Dragon for Lunch Today!', '2021-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'A Small Cost to Bear', '2021-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, '...One Giant Leapp for Dragonkind', '2021-02-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'Scorched!', '2021-02-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 2, 'That Monkey''s Gonna (Make Them) Pay...', '2021-02-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'The Villa Bully', '2021-01-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'A Key Move', '2021-01-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Stomping Target Practice', '2021-01-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Tucked in for a Long Slumber', '2021-01-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Bottled Curiosity', '2021-01-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Byrd Bombs', '2021-01-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Man the Cannons, Man', '2021-02-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'The Harder They Fall', '2021-02-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'It''s Totem Destruction', '2021-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Vanishing Act', '2021-03-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Blutterfly Hunter', '2021-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'A Sarcopha-Kinda Guy', '2021-02-20');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Nice Shootin''Tex', '2021-03-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 3, 'Spyro 3: Year of the Dragon', 1, 'Someone Set Us Up the Bomb', '2021-02-14');
+
+
+-- Uncharted 1
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 2, 'Headshot Expert', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Charted! - Easy', '2020-01-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'First Treasure', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Novice Fortune Hunter', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Relic Finder', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '20 Headshots', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '100 Headshots', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Brutal Brawler', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Brutal Slugger', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Triple Dyno-Might!', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, 'Run-and-Gunner', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '30 Kills: Dragon Sniper', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kills: 92FS-9mm', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kills: M4', '2020-01-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '30 Kills: MP40', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kills: PM - 9mm', '2020-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kill: AK-47', '2020-01-25');
+
+
+-- uncharted 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 2, 'Master Ninja', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Charted! - Easy', '2020-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'First Treasure', '2020-01-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Novice Fortune Hunter', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '20 Headshots', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '100 Headshots', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Bare-knuckle Brawler', '2020-01-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Bare-knuckle Slugger', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Hangman', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, 'Run-and-Gunner', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '30 Kills: Mk-NDI', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '50 Kills: Dragon Sniper', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '50 Kills: M4', '2020-02-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '30 Kills: Moss-12', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 5, 'Uncharted 2: Among Thieves', 1, '20 Kills: Pistole', '2020-02-01');
+
+-- uncharted 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '100 Headshots', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Expert Ninja', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Charted! - Normal', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'First Treasure', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Apprentice Fortune Hunter', '2013-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '20 Headshots', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Headshot Expert', '2013-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Blindfire Marksman', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Run-and-Gunner', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Hangman', '2013-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: Tau Sniper', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: KAL 7', '2013-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: M9', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: G-MAL', '2013-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: Mk-NDI', '2013-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Drop the Bomb Hotshot', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Bare-knuckle Brawler', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Bare-knuckle Slugger', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Brute Beater', '2013-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Quick Study', '2013-12-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 6, 'Uncharted 3: Drake''s Deception', 2, 'Charted! - Easy', '2013-11-25');
+
+-- Mass Effect
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 4, 'N7 Elite', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 3, 'Medal of Honor', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 3, 'Medal of Valor', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Medal of Heroism', '2013-03-21');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Distinguished Service Medal', '2013-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Council Legion of Merit', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Honorarium of Corporate Service', '2013-03-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Long Service Medal', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Distinguished Combat Medal', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Scholar', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Completionist', '2013-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Tactician', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Medal of Exploration', '2013-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Rich', '2013-03-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Extreme Power Gamer', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 2, 'Colonial Savior', '2013-03-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Pistol Expert', '2013-03-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Shotgun Expert', '2013-03-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Assault Rifle Expert', '2013-03-16');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Sniper Expert', '2013-04-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Lift Mastery', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Throw Mastery', '2013-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Warp Mastery', '2013-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Singularity Mastery', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Barrier Mastery', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Stasis Mastery', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Damping Specialist', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'AI Hacking Specialist', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Overload Specialist', '2013-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Sabotage Specialist', '2013-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'First Aid Specialist', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Neural Shock Specialist', '2013-04-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Dog of War', '2013-03-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Geth Hunter', '2013-03-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Soldier Ally', '2013-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Sentinel Ally', '2013-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Krogan Ally', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Turian Ally', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Quarian Ally', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Asari Ally', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Power Gamer', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Renegade', '2013-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Paragon', '2013-03-21');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Paramour', '2013-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Spectre Inductee', '2013-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Charismatic', '2013-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 7, 'Mass Effect', 1, 'Search and Rescue', '2013-03-17');
+
+-- mass effect 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 4, 'N7 Elite', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 3, 'Insanity', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 3, 'No One Left Behind', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Mission Accomplished', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Against All Odds', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Long Service Medal', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Paramour', '2013-05-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Power Gamer', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 2, 'Heart of Darkness', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Highly Trained', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Missing in Action', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Very Elusive', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Convict', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Krogan', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Archangel', '2013-04-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Professor', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Quarian', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Justicar', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Assassin', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Colony Defense', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Prodigal', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Ghost of the Father', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Catharsis', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Battlemaster', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Fade Away', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'The Cure', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Treason', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Doppelganger', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Cat''s in the Cradle', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Friend or Foe', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'A House Divided', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Ghost Ship', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Suicide Mission', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Head Hunter', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Brawler', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Big Game Hunter', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Tactician', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Master at Arms', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Merciless', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Overload Specialist', '2013-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Warp Specialist', '2013-04-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Incineration Specialist', '2013-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Operative', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Agent', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Prospector', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Explorer', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Scholar', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Technician', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Weapon Specialist', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Scientist', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Fashionista', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Power Full', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Broke, Blind and Bedlam', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Data Hound', '2013-04-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 1, 'Digital Exorist', '2013-04-15');
+
+-- mass effect 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 4, 'N7 Elite', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 3, 'Insanity', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 3, 'unwavering', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Legend', '2013-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Master and Commander', '2013-06-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Long Service Medal', '2013-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Combined Arms', '2013-06-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Veteran', '2013-06-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 2, 'Gunsmith', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Driven', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Bringer of War', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Mobilizer', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'World Shaker', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Pathfinder', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Tunnel Rat', '2013-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Party Crasher', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Hard Target', '2013-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Saboteur', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Arbiter', '2013-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Last Witness', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Executioner', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Well Connected', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Fact Finder', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Liberator', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Problem Solver', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Patriot', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Shopaholic', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Lost and Found', '2013-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'A Personal Touch', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Paramour', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Focused', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Recruit', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Soldier', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Bruiser', '2013-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Untouchable', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Defender', '2013-05-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Overload Specialist', '2013-05-16');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Sky High', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Pyromaniac', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Eye of the Hurricane', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Mail Slot', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Hijacker', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Giant Killer', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Enlisted', '2013-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Tour of Duty', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Always Prepared', '2013-05-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Tourist', '2013-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Exploer', '2013-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Almost There', '2013-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Peak Condition', '2013-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 1, 'Battle-Scarred', '2013-06-09');
+
+
+-- vita
+-- cultraz
+-- Rayman Origins
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 2, 'Explorer', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 2, 'Blue Baron!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Betilla''s Back!', '2013-06-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Beautiful Beats!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Feed the Fairy!', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Merm-Aid!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Nymphs Rock!', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Scout', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Milk Tooth', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'The Bubblizer!', '2019-07-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'I''m Back!', '2019-07-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Painless!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Vacuum Snack!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'B Side!', '2019-07-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Cursh Bombo!', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Sprinter!', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Fisher King!', '2019-07-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 10, 'Rayman Origins', 1, 'Survivor!', '2019-07-08');
+
+
+-- cultraz
+-- LEGO The Lord of the Rings
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 11, 'LEGO The Lord of the Rings', 1, 'The day the strength of men failed.', '2014-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 11, 'LEGO The Lord of the Rings', 1, 'It''s a dangerous business goin out your door', '2014-02-01');
+
+
+
+
+
+
+
+
+
+
+
+
+-- gummyman76
+-- spyro
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Hot Wings 1', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Pops of the Tops', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Hot Wings 2', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Gatherer', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Mushroom Hunter', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'I Believe it is Time fo Me to Fly', '2020-11-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Gems in the Rough', '2020-11-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'All Puffed Up', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Scrap Metal', '2020-11-22');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Jacques-tacular', '2020-11-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'What Really Grinds My Gears', '2020-11-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Dragon and On and ON', '2020-11-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 2, 'Hoarder', '2020-11-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Boom!', '2020-11-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Hop, Skip, and Jump', '2020-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Sheep Kebab', '2020-11-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Light My Fire', '2020-11-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Shoot the Moon', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Bird Brained', '2020-11-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Birds of a Feather', '2020-11-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'What''s in the Box?', '2020-11-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Comin'' Through!', '2020-11-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 1, 'Spyro the Dragon', 1, 'Cage Free', '2020-11-26');
+
+
+-- spyro 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 3, 'Consevationist 1', '2021-01-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 3, 'Trouble No More', '2021-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Rescued!', '2021-01-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Lockjaw', '2021-01-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 2, 'Gnot Cannon', '2021-01-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Well, You Might As Well', '2021-01-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Bad Sushi', '2021-01-21');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Using Your Head', '2021-01-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Exterminate', '2021-01-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Warm up nthe Crowd', '2021-01-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'Ganked', '2021-01-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 2, 'Spyro 2: Ripto''s Rage!', 1, 'RGB', '2021-01-14');
+
+
+--- spyro 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 3, 'Moving Up In The World', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 3, 'One Small SStep for Dragon...', '2020-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'The Money''s in the Bag', '2020-01-30');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'Buzz Off!', '2020-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'A Byrd in the Hand...', '2020-02-02');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'A Small Cost to Bear', '2020-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, '...One Giant Leapp for Dragonkind', '2021-01-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'Scorched!', '2021-01-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 2, 'That Monkey''s Gonna (Make Them) Pay...', '2021-01-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'Stomping Target Practice', '2021-01-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'Tucked in for a Long Slumber', '2021-01-08');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'Man the Cannons, Man', '2021-02-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'The Harder They Fall', '2021-02-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'It''s Totem Destruction', '2021-03-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'Vanishing Act', '2021-01-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'Blutterfly Hunter', '2021-01-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 3, 'Spyro 3: Year of the Dragon', 1, 'A Sarcopha-Kinda Guy', '2021-01-20');
+
+
+-- Mass Effect
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 2, 'Medal of Heroism', '2011-03-21');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 2, 'Distinguished Service Medal', '2011-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 2, 'Council Legion of Merit', '2011-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 2, 'Honorarium of Corporate Service', '2011-03-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Shotgun Expert', '2011-03-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Assault Rifle Expert', '2011-03-16');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Sniper Expert', '2011-04-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Lift Mastery', '2011-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Throw Mastery', '2011-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Warp Mastery', '2011-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Singularity Mastery', '2011-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Overload Specialist', '2011-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Sabotage Specialist', '2011-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'First Aid Specialist', '2011-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Turian Ally', '2011-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Quarian Ally', '2011-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Asari Ally', '2011-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Power Gamer', '2011-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Renegade', '2011-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Paragon', '2011-03-21');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Paramour', '2011-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Spectre Inductee', '2011-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Charismatic', '2011-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 7, 'Mass Effect', 1, 'Search and Rescue', '2011-03-17');
+
+-- mass effect 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Highly Trained', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Missing in Action', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Very Elusive', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Convict', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Krogan', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Archangel', '2011-04-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Professor', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Quarian', '2011-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Justicar', '2011-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Assassin', '2011-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Colony Defense', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'The Prodigal', '2011-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Ghost of the Father', '2011-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Catharsis', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Battlemaster', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Treason', '2011-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Doppelganger', '2011-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Cat''s in the Cradle', '2011-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Friend or Foe', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'A House Divided', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Ghost Ship', '2011-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Suicide Mission', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Head Hunter', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Brawler', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Big Game Hunter', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Tactician', '2011-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Overload Specialist', '2011-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Warp Specialist', '2011-04-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Incineration Specialist', '2011-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Operative', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Agent', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Prospector', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Explorer', '2011-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Scholar', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Technician', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Weapon Specialist', '2011-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Scientist', '2011-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 1, 'Digital Exorist', '2011-04-15');
+
+-- mass effect 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Legend', '2011-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Master and Commander', '2011-06-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Long Service Medal', '2011-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Combined Arms', '2011-06-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Veteran', '2011-06-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 2, 'Gunsmith', '2011-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Driven', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Bringer of War', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Mobilizer', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'World Shaker', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Pathfinder', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Tunnel Rat', '2011-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Party Crasher', '2011-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Hard Target', '2011-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Well Connected', '2011-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Fact Finder', '2011-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Liberator', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Problem Solver', '2011-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Patriot', '2011-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Shopaholic', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Lost and Found', '2011-05-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'A Personal Touch', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Paramour', '2011-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Focused', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Recruit', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Soldier', '2011-05-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Bruiser', '2011-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Untouchable', '2011-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Enlisted', '2011-05-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Tour of Duty', '2011-05-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Always Prepared', '2011-05-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 1, 'Battle-Scarred', '2011-06-09');
+
+
+
+
+
+
+-- blueyellow
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'The day the strength of men failed.', '2010-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'It''s a dangerous business goin out your door', '2010-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'Not with 10,000 men could you do this...', '2010-02-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'Hobbits really are amazing creatures', '2010-02-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'On the precious...', '2010-02-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (3, 11, 'LEGO The Lord of the Rings', 1, 'Safe is where I''ll keep you.', '2010-02-05');
+
+
+
+
+
+
+
+-- calaxania
+
+-- Uncharted 1
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 2, 'Headshot Expert', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Charted! - Easy', '2014-01-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'First Treasure', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Novice Fortune Hunter', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Relic Finder', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, '20 Headshots', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, '100 Headshots', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Brutal Brawler', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Brutal Slugger', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, 'Triple Dyno-Might!', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, '30 Kills: MP40', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kills: PM - 9mm', '2014-01-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 4, 'Uncharted: Drake''s Fortune', 1, '50 Kill: AK-47', '2014-01-25');
+
+
+-- uncharted 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 2, 'Master Ninja', '2011-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'Charted! - Easy', '2011-02-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'First Treasure', '2011-01-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'Novice Fortune Hunter', '2011-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, '20 Headshots', '2011-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, '100 Headshots', '2011-02-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'Bare-knuckle Brawler', '2011-01-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'Bare-knuckle Slugger', '2011-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, 'Hangman', '2011-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, '30 Kills: Moss-12', '2011-02-01');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 5, 'Uncharted 2: Among Thieves', 1, '20 Kills: Pistole', '2011-02-01');
+
+-- uncharted 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Charted! - Normal', '2011-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'First Treasure', '2011-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Apprentice Fortune Hunter', '2011-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, '20 Headshots', '2011-11-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Headshot Expert', '2011-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Blindfire Marksman', '2011-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Run-and-Gunner', '2011-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Hangman', '2011-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: Tau Sniper', '2011-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: KAL 7', '2011-11-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, '30 Kills: M9', '2011-11-25');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Quick Study', '2011-12-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 6, 'Uncharted 3: Drake''s Deception', 2, 'Charted! - Easy', '2011-11-25');
+
+-- Mass Effect
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Distinguished Service Medal', '2012-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Council Legion of Merit', '2012-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Honorarium of Corporate Service', '2012-03-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Long Service Medal', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Distinguished Combat Medal', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Scholar', '2012-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Completionist', '2012-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Tactician', '2012-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Medal of Exploration', '2012-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Rich', '2012-03-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Extreme Power Gamer', '2012-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 2, 'Colonial Savior', '2012-03-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Pistol Expert', '2012-03-26');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Shotgun Expert', '2012-03-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Assault Rifle Expert', '2012-03-16');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Sniper Expert', '2012-04-05');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Lift Mastery', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Throw Mastery', '2012-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Warp Mastery', '2012-03-31');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Singularity Mastery', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Barrier Mastery', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Stasis Mastery', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Damping Specialist', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'AI Hacking Specialist', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Overload Specialist', '2012-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Sabotage Specialist', '2012-03-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'First Aid Specialist', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Neural Shock Specialist', '2012-04-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Dog of War', '2012-03-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Geth Hunter', '2012-03-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Soldier Ally', '2012-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Sentinel Ally', '2012-03-23');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Krogan Ally', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Turian Ally', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Quarian Ally', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Asari Ally', '2012-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Power Gamer', '2012-03-24');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Renegade', '2012-03-29');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 7, 'Mass Effect', 1, 'Search and Rescue', '2012-03-17');
+
+-- mass effect 2
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 4, 'N7 Elite', '2013-05-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 3, 'Insanity', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 3, 'No One Left Behind', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Mission Accomplished', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Against All Odds', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Long Service Medal', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Paramour', '2013-04-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Power Gamer', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 2, 'Heart of Darkness', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Highly Trained', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Missing in Action', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Very Elusive', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Convict', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Krogan', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Archangel', '2013-04-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Professor', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Quarian', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Justicar', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Assassin', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Colony Defense', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Prodigal', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Ghost of the Father', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Catharsis', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Battlemaster', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Fade Away', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'The Cure', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Treason', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Doppelganger', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Cat''s in the Cradle', '2013-04-17');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Friend or Foe', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'A House Divided', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Ghost Ship', '2013-04-14');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Suicide Mission', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Head Hunter', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Brawler', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Big Game Hunter', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Tactician', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Master at Arms', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Merciless', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Overload Specialist', '2013-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Warp Specialist', '2013-04-27');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Incineration Specialist', '2013-04-28');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Operative', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Agent', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Prospector', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Fashionista', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Power Full', '2013-04-13');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Broke, Blind and Bedlam', '2013-04-07');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Data Hound', '2013-04-15');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 1, 'Digital Exorist', '2013-04-15');
+
+-- mass effect 3
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 4, 'N7 Elite', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 3, 'Insanity', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 3, 'unwavering', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Legend', '2013-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Master and Commander', '2013-06-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Long Service Medal', '2013-06-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Combined Arms', '2013-06-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Veteran', '2013-06-06');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 2, 'Gunsmith', '2013-06-09');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Driven', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Bringer of War', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Mobilizer', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'World Shaker', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Pathfinder', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Tunnel Rat', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Party Crasher', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Hard Target', '2013-04-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Saboteur', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Arbiter', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Last Witness', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Executioner', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Well Connected', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Fact Finder', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Liberator', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Problem Solver', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Patriot', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Shopaholic', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Lost and Found', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'A Personal Touch', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Paramour', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Focused', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Recruit', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Soldier', '2013-04-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Bruiser', '2013-04-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Untouchable', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Defender', '2013-04-19');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Overload Specialist', '2013-04-16');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Sky High', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Pyromaniac', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Eye of the Hurricane', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Mail Slot', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Hijacker', '2013-04-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Giant Killer', '2013-04-04');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Enlisted', '2013-03-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Tour of Duty', '2013-03-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Always Prepared', '2013-03-10');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Tourist', '2013-03-03');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Exploer', '2013-03-12');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Almost There', '2013-03-11');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Peak Condition', '2013-03-18');
+INSERT INTO mainGame (user_id, game_id, game_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 1, 'Battle-Scarred', '2013-06-09');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------
+-- dlc
+-- cultraz
+-- mass effect 2
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 'Zaeed: The Price of Revenge', 1, 'Revenge!', '2013-04-13');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 'Arrival', 1, 'The Ultimate Sacrifice', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 'Arrival', 1, 'Last Stand', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 8, 'Mass Effect 2', 'Arrival', 1, 'Covert Action', '2013-05-04');
+
+-- mass effect 3
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'From Ashes', 1, 'Freedom Fighter', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'From Ashes', 1, 'Prothean Expert', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Leviathan', 2, 'Conspiracy Theorist', '2013-05-04');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Leviathan', 1, 'No Stone Unturned', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Leviathan', 1, 'Family Matters', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Leviathan', 1, 'Under Pressure', '2013-05-12');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Omega', 2, 'Talon', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Omega', 2, 'Meticulous', '2013-06-07');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Omega', 1, 'Savior', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 2, 'Last Resort', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 2, 'Technical Issues', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 2, 'Simulated Hero', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 2, 'The One and Only', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 1, 'Priority Target', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 1, 'High Society', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 1, 'Team Player', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 1, 'Perfect Host', '2013-05-10');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (1, 9, 'Mass Effect 3', 'Citadel', 1, 'King of the Castle', '2013-05-10');
+
+
+-- gummyman76
+-- mass effect 2
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 'Zaeed: The Price of Revenge', 1, 'Revenge!', '2013-04-13');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 'Arrival', 1, 'The Ultimate Sacrifice', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 'Arrival', 1, 'Last Stand', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 8, 'Mass Effect 2', 'Arrival', 1, 'Covert Action', '2013-05-04');
+
+-- mass effect 3
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'From Ashes', 1, 'Freedom Fighter', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'From Ashes', 1, 'Prothean Expert', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Leviathan', 2, 'Conspiracy Theorist', '2013-05-04');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Leviathan', 1, 'No Stone Unturned', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Leviathan', 1, 'Family Matters', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Leviathan', 1, 'Under Pressure', '2013-05-12');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Omega', 2, 'Talon', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Omega', 2, 'Meticulous', '2013-06-07');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Omega', 1, 'Savior', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 2, 'Simulated Hero', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 2, 'The One and Only', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 1, 'Priority Target', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 1, 'High Society', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 1, 'Team Player', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 1, 'Perfect Host', '2013-05-10');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (2, 9, 'Mass Effect 3', 'Citadel', 1, 'King of the Castle', '2013-05-10');
+
+
+-- calaxania
+-- mass effect 2
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 'Zaeed: The Price of Revenge', 1, 'Revenge!', '2013-04-13');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 'Arrival', 1, 'The Ultimate Sacrifice', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 'Arrival', 1, 'Last Stand', '2013-04-18');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 8, 'Mass Effect 2', 'Arrival', 1, 'Covert Action', '2013-05-04');
+
+-- mass effect 3
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'From Ashes', 1, 'Freedom Fighter', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'From Ashes', 1, 'Prothean Expert', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Leviathan', 2, 'Conspiracy Theorist', '2013-05-04');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Leviathan', 1, 'No Stone Unturned', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Leviathan', 1, 'Family Matters', '2013-05-12');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Leviathan', 1, 'Under Pressure', '2013-05-12');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Omega', 2, 'Talon', '2013-05-11');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Omega', 2, 'Meticulous', '2013-06-07');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Omega', 1, 'Savior', '2013-05-11');
+
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 2, 'Last Resort', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 2, 'Technical Issues', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 2, 'Simulated Hero', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 2, 'The One and Only', '2013-06-09');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 1, 'Priority Target', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 1, 'High Society', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 1, 'Team Player', '2013-05-05');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 1, 'Perfect Host', '2013-05-10');
+INSERT INTO dlc (user_id, game_id, game_name, dlc_name, trophy_lvl, trophy_name, trophy_date) VALUES (4, 9, 'Mass Effect 3', 'Citadel', 1, 'King of the Castle', '2013-05-10');
+
+----------------------------------------------------------------------------------
+

@@ -1,0 +1,153 @@
+Haunted Mansion Escape:
+
+Idea:
+You are investigating a paranormal mansion where 35 people over 100 years have gone missing in this house and have never been seen again.
+
+Floor 1:
+num of Rooms: 16
+aim to get 1 key
+
+Floor 2:
+num of Rooms: 16
+aim to collect 3 key to get the correct one
+the Riddle: How many letters are in the alphabet?
+bone key: 26
+metal key: 8
+wood key: 11
+
+Floor 3:
+num of Rooms: 16
+aim to solve the mystery of the mansion
+Find the clues to get the name of the witch that created the curse.
+Which Choices:
+Sabrina Spellman
+Marie Lavaue ✓
+Piper Halliwell
+Scarltet Witch
+Agatha Harkness
+Clues:
+Was in a popular TV show
+Was in a comic
+Was a living Being
+
+
+Attic:
+Final room.
+aim distroy the crystal ball or be claimed by the mansion
+Tools
+hammer, wrench, pipe, scissors, rock
+Hammer: Breaks crystal ball
+Wrench: Breaks crystal ball
+Pipe: cracks crystal ball, Ball repairs itself trapping you for eternity
+Rock: cracks crystal ball, Ball repairs itself trapping you for eternity
+Scissor: gets stuck in the crystal ball, Ball repairs itself sealing in the scissors trapping you for eternity
+
+Story:
+Haunted Mansion:
+Welcome to the Haunted Mansion.
+As a paranormal investigator it is you job to find out what has caused 35 people to disappear over the last century. Your search has led you to this haunted mansion.
+
+You have now entered the mansion. The Large doors slam shut behind you and locked themselves as well. Now begins your journey.
+To learn how to move type “help” at any point.
+To see you Inventory type “inventory” or “invent”.
+
+Rooms with no light:
+There is no light in this room
+
+Curtain rooms:
+There is moonlight seeping through the curtain.
+Moonlight illuminated the room.
+
+Food:
+There is a bowl of fresh fruit on the table.
+The fruit was a good choice.
+
+Water:
+There is a carafe of water and a glass on a table.
+You poured yourself a much-needed glass of water to quench you thirst.
+
+Key (Floor 1):
+You found a {key name/leave empty} key lying around the room.
+You have put the key into you bag.
+
+Clue:
+While digging in the room you found a clue to who is behind the disappearances and put it in your bag.
+The clue is:
+{display clue for room}
+
+Locked door (Floor 1):
+You found a locked door. (No Key)
+You found a locked door.
+You have unlocked the door to the {floor number} floor. (With Key)
+
+Locked door (Floor 2):
+The door is locked. But there is writing on it that says: “How many letters are in the alphabet?”
+(Using metal or bone key) The key did not work. Try another key.
+(Using Wood key) The door is unlocked. You go up the stairs to the 3rd floor.
+
+Key (metal):
+You found a metal key with “8” scratched into it while searching the room.
+You put it in your bag.
+
+Key (bone):
+You found a bone key with “26” scratched into it while searching the room.
+You put it in your bag.
+
+Key (wood):
+You found a wooden key with “11” scratched into it while searching the room.
+You put it in your bag.
+
+Room to library (painting door):
+You have entered the room and see a door at the end you go to the door.
+You notice the door is actually a painting
+
+Room to library
+You have entered the room and see a door at the end you go to the door.
+You see the door handle.
+
+Library:
+You have entered a library of magical architecture.
+There is a bookshelf full of witches such as:
+Sabrina Spellman
+Scarlet Witch
+Marie Lavaue 
+Piper Halliwell
+Agatha Harkness
+
+You grabbed the book about Sabrina Spellman. Nothing interesting.
+You grabbed the book about Scarlet Witch. Nothing interesting.
+You grabbed the book about Piper Halliwell. Nothing interesting.
+You grabbed the book about Agatha Harkness. Nothing interesting.
+You grabbed the book about Marie Lavaue. You hear something click. The book goes back into place.
+
+Ladder:
+The room appears to be empty.
+After library
+A ladder appeared in the room. You climb it and enter the attic.
+
+Moving into wall:
+You walked into the wall. Ouch. I hope nothing saw that.
+
+Hallway:
+You are still in the hallway.
+or
+You are still in the hallway but there is a door {direction of door} of you.
+
+Empty room:
+You searched the room only to come up empty.
+	
+Attic:
+You have now entered the attic only to find a glowing crystal ball on the table surrounded by, a hammer, a wrench, a pipe, a rock, and a pair of scissors.
+
+Grabbing pipe or rock:
+You crack the crystal ball. The crystal ball repairs itself trapping you for eternity with everyone else.
+
+Grabbing scissors:
+You plunge the scissors into the crystal ball, and they get stuck. The crystal ball repairs itself sealing in the scissors trapping you for eternity with everyone else.
+
+Grabbing hammer or wrench:
+You whack the crystal ball with {tool}. It has shattered the crystal ball into millions of shards. You have freed all the victims of Marie Lavaue.
+You walk out of the mansion forgetting why you were there and wondering. What just happened.
+
+
+
